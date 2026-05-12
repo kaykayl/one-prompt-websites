@@ -83,6 +83,6 @@ No hex codes. No font names. No layout decisions. Just your product.
 
 ## About
 
-Built by [Your Name]. Part of a larger series on how non-technical founders can build high-quality websites without a design or engineering team.
+Built by Kyle Licarte. Part of a larger series on how non-technical founders can build high-quality websites without a design or engineering team.
 
-Follow along → [Your Instagram / YouTube / X handle]
+Follow along → Instagram: @kaykierl
