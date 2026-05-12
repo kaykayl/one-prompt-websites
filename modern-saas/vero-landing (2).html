@@ -1,0 +1,2330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vero — Close your books in a day, every month.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     CSS VARIABLES
+  ============================================================ */
+  :root {
+    --font: 'Bricolage Grotesque', sans-serif;
+
+    /* Colors */
+    --black:        #111010;
+    --near-black:   #1a1918;
+    --gray-700:     #4a4744;
+    --gray-500:     #7c7875;
+    --gray-300:     #c8c5c2;
+    --gray-100:     #f0eeec;
+    --off-white:    #faf9f7;
+    --white:        #ffffff;
+
+    /* Accent — a muted rose pulled from the hero gradient */
+    --accent:       #b8748c;
+    --accent-light: #e8d0d8;
+
+    /* Hero gradient stops */
+    --grad-1: #f0e4f0;
+    --grad-2: #f5e0e8;
+    --grad-3: #fce8d8;
+    --grad-4: #f8f0f8;
+
+    /* Layout */
+    --content-max: 860px;
+    --wide-max:    1100px;
+    --section-gap: 120px;
+    --section-gap-sm: 80px;
+  }
+
+  /* ============================================================
+     RESET & BASE
+  ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--off-white);
+    color: var(--near-black);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  img { display: block; max-width: 100%; }
+  a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
+
+  /* ============================================================
+     UTILITIES
+  ============================================================ */
+  .container {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  .container--wide {
+    max-width: var(--wide-max);
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    margin-bottom: 16px;
+  }
+
+  /* ============================================================
+     BUTTONS
+  ============================================================ */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    padding: 13px 26px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+    text-decoration: none;
+  }
+  .btn-primary:hover {
+    background: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    color: var(--gray-700);
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 13px 4px;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .btn-secondary:hover {
+    color: var(--near-black);
+    border-bottom-color: var(--near-black);
+  }
+  .btn-secondary svg { transition: transform 0.2s ease; }
+  .btn-secondary:hover svg { transform: translateX(2px); }
+
+  /* ============================================================
+     NAVIGATION
+  ============================================================ */
+  nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 0 40px;
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    max-width: var(--wide-max);
+    margin: 0 auto;
+  }
+  .nav-logo {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--near-black);
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+  .nav-links a {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--gray-700);
+    transition: color 0.18s;
+  }
+  .nav-links a:hover { color: var(--near-black); }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .nav-login {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--gray-700);
+    transition: color 0.18s;
+  }
+  .nav-login:hover { color: var(--near-black); }
+
+  /* Mobile nav */
+  .nav-mobile-toggle { display: none; }
+
+  /* ============================================================
+     HERO SECTION
+  ============================================================ */
+  .hero {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 160px;
+    padding-bottom: 0;
+    overflow: hidden;
+    background: var(--off-white);
+  }
+
+  /* Atmospheric gradient — the one place color lives */
+  .hero-gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 65% at 50% 30%, #f2dded 0%, transparent 65%),
+      radial-gradient(ellipse 55% 50% at 20% 15%, #f8e8f0 0%, transparent 60%),
+      radial-gradient(ellipse 60% 55% at 78% 18%, #fde9d6 0%, transparent 60%),
+      radial-gradient(ellipse 70% 40% at 50% 0%, #f5e4f2 0%, transparent 55%);
+    background-color: var(--off-white);
+    /* Fade to white at the bottom */
+    -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: var(--content-max);
+    padding: 0 32px;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(184, 116, 140, 0.2);
+    border-radius: 100px;
+    padding: 5px 14px 5px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gray-700);
+    margin-bottom: 32px;
+    backdrop-filter: blur(8px);
+  }
+  .hero-eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .hero h1 {
+    font-size: clamp(44px, 7vw, 72px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.06;
+    color: var(--near-black);
+    margin-bottom: 24px;
+  }
+
+  .hero-sub {
+    font-size: clamp(16px, 2.2vw, 19px);
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--gray-700);
+    max-width: 580px;
+    margin: 0 auto 40px;
+  }
+
+  .hero-ctas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .hero-trust {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--gray-500);
+    margin-bottom: 64px;
+  }
+  .hero-trust span { margin: 0 6px; opacity: 0.4; }
+
+  /* ============================================================
+     PRODUCT MOCKUP
+  ============================================================ */
+  .hero-mockup-wrap {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 980px;
+    padding: 0 32px;
+    margin: 0 auto;
+  }
+
+  .product-mockup {
+    width: 100%;
+    background: var(--white);
+    border-radius: 12px 12px 0 0;
+    box-shadow:
+      0 2px 4px rgba(0,0,0,0.03),
+      0 8px 24px rgba(0,0,0,0.06),
+      0 32px 80px rgba(0,0,0,0.08),
+      0 60px 120px rgba(0,0,0,0.05);
+    overflow: hidden;
+    font-family: var(--font);
+    border: 1px solid rgba(0,0,0,0.07);
+    border-bottom: none;
+  }
+
+  /* Mockup top bar */
+  .mockup-topbar {
+    display: flex;
+    align-items: center;
+    height: 44px;
+    padding: 0 16px;
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-100);
+    gap: 8px;
+  }
+  .mockup-dots { display: flex; gap: 5px; }
+  .mockup-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+  .mockup-dot.red   { background: #ff6259; }
+  .mockup-dot.yellow{ background: #ffbd2e; }
+  .mockup-dot.green { background: #28ca41; }
+
+  .mockup-urlbar {
+    flex: 1;
+    height: 24px;
+    background: var(--gray-100);
+    border-radius: 4px;
+    max-width: 320px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+  .mockup-urlbar-icon {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #28ca41;
+    flex-shrink: 0;
+  }
+  .mockup-urlbar-text {
+    font-size: 10px;
+    color: var(--gray-500);
+    font-weight: 400;
+  }
+
+  /* Mockup body */
+  .mockup-body {
+    display: flex;
+    height: 440px;
+  }
+
+  /* Sidebar */
+  .mockup-sidebar {
+    width: 196px;
+    flex-shrink: 0;
+    background: #f7f6f4;
+    border-right: 1px solid var(--gray-100);
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .mockup-sidebar-logo {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--near-black);
+    padding: 0 16px 20px;
+    border-bottom: 1px solid var(--gray-100);
+    margin-bottom: 12px;
+  }
+  .mockup-sidebar-logo span { color: var(--accent); }
+
+  .mockup-nav-section {
+    padding: 8px 0;
+  }
+  .mockup-nav-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-300);
+    padding: 0 16px;
+    margin-bottom: 4px;
+  }
+  .mockup-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gray-700);
+    cursor: pointer;
+    border-radius: 6px;
+    margin: 1px 6px;
+    transition: background 0.15s;
+  }
+  .mockup-nav-item:hover { background: rgba(0,0,0,0.04); }
+  .mockup-nav-item.active {
+    background: var(--white);
+    color: var(--near-black);
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .mockup-nav-icon {
+    width: 14px; height: 14px;
+    opacity: 0.55;
+    flex-shrink: 0;
+  }
+  .mockup-nav-item.active .mockup-nav-icon { opacity: 1; }
+
+  /* Mockup main area */
+  .mockup-main {
+    flex: 1;
+    overflow: hidden;
+    padding: 24px;
+    background: var(--white);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .mockup-header-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .mockup-page-title {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--near-black);
+  }
+  .mockup-page-sub {
+    font-size: 11px;
+    color: var(--gray-500);
+    margin-top: 2px;
+  }
+  .mockup-period-badge {
+    font-size: 11px;
+    font-weight: 500;
+    background: var(--gray-100);
+    color: var(--gray-700);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--gray-300);
+  }
+
+  /* Stat cards */
+  .mockup-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .mockup-stat {
+    background: var(--off-white);
+    border: 1px solid var(--gray-100);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .mockup-stat-label {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--gray-500);
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+  .mockup-stat-value {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--near-black);
+  }
+  .mockup-stat-change {
+    font-size: 10px;
+    font-weight: 500;
+    margin-top: 3px;
+  }
+  .mockup-stat-change.up { color: #2da854; }
+  .mockup-stat-change.down { color: #c94040; }
+  .mockup-stat-change.accent { color: var(--accent); }
+
+  /* Chart area */
+  .mockup-chart-row {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 12px;
+    flex: 1;
+  }
+  .mockup-chart-panel {
+    background: var(--off-white);
+    border: 1px solid var(--gray-100);
+    border-radius: 8px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .mockup-chart-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--near-black);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .mockup-chart-badge {
+    font-size: 9px;
+    font-weight: 500;
+    color: #2da854;
+    background: #e8f7ee;
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+
+  /* SVG chart inline */
+  .mockup-chart-svg {
+    width: 100%;
+    flex: 1;
+  }
+
+  /* Table panel */
+  .mockup-table-panel {
+    background: var(--off-white);
+    border: 1px solid var(--gray-100);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .mockup-table-head {
+    display: grid;
+    grid-template-columns: 1fr 56px 46px;
+    gap: 4px;
+    padding: 8px 12px;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--gray-500);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--gray-100);
+    background: var(--white);
+  }
+  .mockup-table-row {
+    display: grid;
+    grid-template-columns: 1fr 56px 46px;
+    gap: 4px;
+    padding: 7px 12px;
+    font-size: 10.5px;
+    color: var(--gray-700);
+    border-bottom: 1px solid var(--gray-100);
+    align-items: center;
+    transition: background 0.1s;
+  }
+  .mockup-table-row:last-child { border-bottom: none; }
+  .mockup-table-row:hover { background: rgba(255,255,255,0.7); }
+  .mockup-table-name { font-weight: 500; color: var(--near-black); font-size: 10.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mockup-table-amount { font-weight: 600; color: var(--near-black); text-align: right; }
+  .mockup-badge {
+    font-size: 9px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 3px;
+    text-align: center;
+  }
+  .mockup-badge.matched { background: #e8f7ee; color: #2da854; }
+  .mockup-badge.flagged { background: #fff3e0; color: #d97706; }
+  .mockup-badge.pending { background: var(--gray-100); color: var(--gray-500); }
+
+  /* ============================================================
+     SOCIAL PROOF BAR
+  ============================================================ */
+  .social-proof {
+    padding: 60px 0 72px;
+    background: var(--off-white);
+  }
+  .social-proof-label {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gray-500);
+    letter-spacing: 0.04em;
+    margin-bottom: 28px;
+  }
+  .social-proof-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  .logo-slot {
+    height: 22px;
+    display: flex;
+    align-items: center;
+  }
+  .logo-wordmark {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--gray-300);
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  /* ============================================================
+     FEATURES SECTION
+  ============================================================ */
+  .features {
+    padding: var(--section-gap) 0;
+    background: var(--white);
+  }
+  .features-intro {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .features-intro h2 {
+    font-size: clamp(30px, 4vw, 42px);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    color: var(--near-black);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .features-intro p {
+    font-size: 17px;
+    color: var(--gray-700);
+    line-height: 1.6;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px 56px;
+  }
+  .feature-item {}
+  .feature-icon {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 16px;
+    color: var(--gray-700);
+  }
+  .feature-item h3 {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--near-black);
+    margin-bottom: 9px;
+  }
+  .feature-item p {
+    font-size: 14.5px;
+    color: var(--gray-700);
+    line-height: 1.65;
+  }
+
+  /* ============================================================
+     PRODUCT DEEP DIVE
+  ============================================================ */
+  .deep-dive {
+    padding: var(--section-gap) 0;
+    background: var(--off-white);
+  }
+  .deep-dive-intro {
+    text-align: center;
+    margin-bottom: 72px;
+  }
+  .deep-dive-intro h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    color: var(--near-black);
+    line-height: 1.1;
+  }
+
+  .spotlight {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    margin-bottom: 96px;
+  }
+  .spotlight:last-child { margin-bottom: 0; }
+  .spotlight.reverse { direction: rtl; }
+  .spotlight.reverse > * { direction: ltr; }
+
+  .spotlight-text {}
+  .spotlight-area {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .spotlight-text h3 {
+    font-size: clamp(24px, 3.2vw, 34px);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    color: var(--near-black);
+    line-height: 1.1;
+    margin-bottom: 18px;
+  }
+  .spotlight-text p {
+    font-size: 15.5px;
+    color: var(--gray-700);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+  .spotlight-bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .spotlight-bullet {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--gray-700);
+    line-height: 1.5;
+  }
+  .bullet-check {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--accent);
+  }
+
+  /* UI panel mockups — frameless */
+  .spotlight-panel {
+    background: var(--white);
+    border-radius: 10px;
+    box-shadow:
+      0 2px 8px rgba(0,0,0,0.04),
+      0 16px 48px rgba(0,0,0,0.07);
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+
+  /* Close checklist panel */
+  .panel-close {
+    padding: 24px;
+  }
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .panel-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--near-black);
+    letter-spacing: -0.01em;
+  }
+  .panel-tag {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 3px;
+    background: #e8f7ee;
+    color: #2da854;
+  }
+  .panel-tag.orange { background: #fff3e0; color: #d97706; }
+
+  .close-checklist { display: flex; flex-direction: column; gap: 6px; }
+  .close-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 6px;
+    background: var(--off-white);
+    border: 1px solid var(--gray-100);
+  }
+  .close-item-check {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .close-item-check.done { background: #2da854; }
+  .close-item-check.pending-c { background: var(--white); border: 1.5px solid var(--gray-300); }
+  .close-item-check.in-progress { background: var(--accent); }
+
+  .close-item-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--near-black);
+    flex: 1;
+  }
+  .close-item-label.done-label {
+    text-decoration: line-through;
+    color: var(--gray-500);
+    font-weight: 400;
+  }
+  .close-item-user {
+    font-size: 10px;
+    color: var(--gray-500);
+    white-space: nowrap;
+  }
+  .close-progress {
+    margin-top: 16px;
+    background: var(--gray-100);
+    border-radius: 4px;
+    height: 6px;
+    overflow: hidden;
+  }
+  .close-progress-bar {
+    height: 100%;
+    width: 67%;
+    background: linear-gradient(90deg, var(--accent), #d4a0b0);
+    border-radius: 4px;
+  }
+  .close-progress-label {
+    font-size: 10px;
+    color: var(--gray-500);
+    margin-top: 6px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* Reporting panel */
+  .panel-report {
+    padding: 24px;
+  }
+  .report-tabs {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 18px;
+    background: var(--gray-100);
+    border-radius: 6px;
+    padding: 3px;
+  }
+  .report-tab {
+    flex: 1;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 5px 0;
+    border-radius: 4px;
+    color: var(--gray-500);
+    cursor: pointer;
+  }
+  .report-tab.active {
+    background: var(--white);
+    color: var(--near-black);
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  .report-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .report-row:last-of-type { border-bottom: none; }
+  .report-row-label {
+    font-size: 12px;
+    color: var(--gray-700);
+  }
+  .report-row-label.indent { padding-left: 14px; color: var(--gray-500); font-size: 11.5px; }
+  .report-row-label.bold { font-weight: 700; color: var(--near-black); }
+  .report-row-value {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--near-black);
+  }
+  .report-row-value.green { color: #2da854; }
+  .report-row-value.red { color: #c94040; }
+
+  .report-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #2da854;
+    background: #e8f7ee;
+    padding: 3px 9px;
+    border-radius: 100px;
+    margin-bottom: 14px;
+  }
+  .report-live-dot {
+    width: 5px; height: 5px;
+    background: #2da854;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* Integrations panel */
+  .panel-integrations {
+    padding: 24px;
+  }
+  .integration-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .integration-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 8px;
+    background: var(--off-white);
+    border: 1px solid var(--gray-100);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .integration-chip.connected {
+    border-color: #c8e6d0;
+    background: #f2faf4;
+  }
+  .integration-chip:hover { border-color: var(--gray-300); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  .integration-icon {
+    width: 26px; height: 26px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: -0.03em;
+  }
+  .integration-name { font-size: 9px; font-weight: 500; color: var(--gray-500); }
+  .integration-chip.connected .integration-name { color: #2da854; }
+
+  .integration-sync-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--off-white);
+    border: 1px solid var(--gray-100);
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 11px;
+    color: var(--gray-700);
+  }
+  .integration-sync-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #2da854;
+  }
+
+  /* ============================================================
+     TESTIMONIALS
+  ============================================================ */
+  .testimonials {
+    padding: var(--section-gap) 0;
+    background: var(--gray-100);
+  }
+  .testimonials-intro {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .testimonials-intro h2 {
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    color: var(--near-black);
+    line-height: 1.1;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-items: start;
+  }
+  .testimonial-card {
+    background: var(--white);
+    border: 1px solid var(--gray-100);
+    border-radius: 10px;
+    padding: 28px;
+  }
+  .testimonial-stars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 16px;
+  }
+  .star {
+    width: 13px; height: 13px;
+    color: var(--accent);
+    fill: var(--accent);
+  }
+  .testimonial-quote {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--gray-700);
+    margin-bottom: 24px;
+    font-weight: 400;
+  }
+  .testimonial-author {}
+  .testimonial-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--near-black);
+    letter-spacing: -0.01em;
+  }
+  .testimonial-role {
+    font-size: 12px;
+    color: var(--gray-500);
+    margin-top: 2px;
+  }
+
+  /* ============================================================
+     METRICS STRIP
+  ============================================================ */
+  .metrics {
+    padding: 80px 0;
+    background: var(--off-white);
+  }
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    text-align: center;
+  }
+  .metric-item {}
+  .metric-value {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--near-black);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .metric-label {
+    font-size: 13px;
+    color: var(--gray-500);
+    line-height: 1.4;
+    font-weight: 400;
+  }
+  .metric-divider {
+    width: 1px;
+    background: var(--gray-300);
+    align-self: stretch;
+    display: none;
+  }
+
+  /* ============================================================
+     PRICING
+  ============================================================ */
+  .pricing {
+    padding: var(--section-gap) 0;
+    background: var(--white);
+  }
+  .pricing-intro {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .pricing-intro h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    color: var(--near-black);
+    margin-bottom: 14px;
+  }
+  .pricing-intro p {
+    font-size: 16px;
+    color: var(--gray-700);
+    line-height: 1.6;
+  }
+  .pricing-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 40px;
+    font-size: 13px;
+    color: var(--gray-700);
+  }
+  .toggle-switch {
+    width: 36px; height: 20px;
+    background: var(--near-black);
+    border-radius: 100px;
+    position: relative;
+    cursor: pointer;
+  }
+  .toggle-knob {
+    width: 14px; height: 14px;
+    background: var(--white);
+    border-radius: 50%;
+    position: absolute;
+    top: 3px; right: 3px;
+    transition: right 0.2s;
+  }
+  .toggle-save {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-items: start;
+  }
+  .pricing-card {
+    background: var(--off-white);
+    border: 1px solid var(--gray-100);
+    border-radius: 10px;
+    padding: 28px;
+    position: relative;
+  }
+  .pricing-card.featured {
+    background: var(--white);
+    border: 2px solid var(--near-black);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+  .pricing-popular {
+    position: absolute;
+    top: -1px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--near-black);
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 3px 12px;
+    border-radius: 0 0 6px 6px;
+  }
+  .pricing-tier-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--near-black);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .pricing-tier-desc {
+    font-size: 13px;
+    color: var(--gray-500);
+    line-height: 1.5;
+    margin-bottom: 24px;
+    min-height: 42px;
+  }
+  .pricing-price {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-bottom: 24px;
+  }
+  .pricing-price-amount {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--near-black);
+    line-height: 1;
+  }
+  .pricing-price-currency {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gray-700);
+    align-self: flex-start;
+    margin-top: 6px;
+  }
+  .pricing-price-period {
+    font-size: 13px;
+    color: var(--gray-500);
+  }
+  .pricing-cta {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .btn-pricing-main {
+    width: 100%;
+    display: block;
+    padding: 12px;
+    background: var(--near-black);
+    color: var(--white);
+    font-family: var(--font);
+    font-size: 13.5px;
+    font-weight: 600;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-align: center;
+  }
+  .btn-pricing-main:hover { background: var(--accent); }
+  .btn-pricing-outline {
+    width: 100%;
+    display: block;
+    padding: 12px;
+    background: transparent;
+    color: var(--near-black);
+    font-family: var(--font);
+    font-size: 13.5px;
+    font-weight: 600;
+    border-radius: 6px;
+    border: 1.5px solid var(--gray-300);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    text-align: center;
+  }
+  .btn-pricing-outline:hover { border-color: var(--near-black); background: var(--white); }
+
+  .pricing-features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .pricing-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--gray-700);
+  }
+  .pricing-check {
+    width: 14px; height: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    color: var(--accent);
+  }
+  .pricing-feature.muted { color: var(--gray-300); }
+  .pricing-feature.muted .pricing-check { color: var(--gray-300); }
+
+  /* ============================================================
+     FINAL CTA
+  ============================================================ */
+  .final-cta {
+    padding: var(--section-gap) 0;
+    background: var(--off-white);
+    text-align: center;
+  }
+  .final-cta h2 {
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--near-black);
+    line-height: 1.08;
+    margin-bottom: 18px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .final-cta p {
+    font-size: 16px;
+    color: var(--gray-700);
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+  .final-cta-btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .final-trust {
+    font-size: 12px;
+    color: var(--gray-500);
+  }
+  .final-trust span { margin: 0 6px; opacity: 0.4; }
+
+  /* ============================================================
+     FOOTER
+  ============================================================ */
+  footer {
+    background: var(--white);
+    padding: 60px 0 0;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 48px;
+  }
+  .footer-brand {}
+  .footer-logo {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--near-black);
+    margin-bottom: 10px;
+  }
+  .footer-logo span { color: var(--accent); }
+  .footer-tagline {
+    font-size: 13px;
+    color: var(--gray-500);
+    line-height: 1.5;
+    max-width: 200px;
+    margin-bottom: 20px;
+  }
+  .footer-social { display: flex; gap: 10px; }
+  .footer-social-link {
+    width: 30px; height: 30px;
+    border: 1px solid var(--gray-100);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gray-500);
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .footer-social-link:hover { border-color: var(--near-black); color: var(--near-black); }
+
+  .footer-col-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--near-black);
+    margin-bottom: 16px;
+  }
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer-links a {
+    font-size: 13px;
+    color: var(--gray-500);
+    transition: color 0.15s;
+  }
+  .footer-links a:hover { color: var(--near-black); }
+
+  .footer-legal {
+    border-top: 1px solid var(--gray-100);
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-legal-text {
+    font-size: 12px;
+    color: var(--gray-500);
+  }
+  .footer-legal-links {
+    display: flex;
+    gap: 20px;
+  }
+  .footer-legal-links a {
+    font-size: 12px;
+    color: var(--gray-500);
+    transition: color 0.15s;
+  }
+  .footer-legal-links a:hover { color: var(--near-black); }
+
+  /* ============================================================
+     RESPONSIVE — MOBILE
+  ============================================================ */
+  @media (max-width: 768px) {
+    :root {
+      --section-gap: 72px;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(250,249,247,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--gray-100);
+      padding: 0 20px;
+    }
+    .nav-links { display: none; }
+    .nav-mobile-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      border: 1px solid var(--gray-100);
+      border-radius: 6px;
+      background: none;
+      cursor: pointer;
+      color: var(--near-black);
+    }
+
+    .hero { padding-top: 60px; }
+    .hero-mockup-wrap { padding: 0 16px; }
+
+    .mockup-body { height: 300px; }
+    .mockup-sidebar { display: none; }
+    .mockup-stats { grid-template-columns: repeat(2, 1fr); }
+    .mockup-chart-row { grid-template-columns: 1fr; }
+    .mockup-table-panel { display: none; }
+
+    .social-proof-logos { gap: 24px; }
+
+    .features-grid { grid-template-columns: 1fr; gap: 40px; }
+
+    .spotlight {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin-bottom: 64px;
+    }
+    .spotlight.reverse { direction: ltr; }
+
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .pricing-grid { grid-template-columns: 1fr; }
+
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+    .footer-brand { grid-column: 1 / -1; }
+    .footer-legal { flex-direction: column; align-items: flex-start; }
+  }
+
+  @media (max-width: 480px) {
+    .social-proof-logos { gap: 20px; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+    .hero-ctas { flex-direction: column; align-items: center; }
+    .final-cta-btns { flex-direction: column; align-items: center; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+============================================================ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Vero<span>.</span></a>
+    <div class="nav-links">
+      <a href="#">Product</a>
+      <a href="#">Pricing</a>
+      <a href="#">Customers</a>
+      <a href="#">Docs</a>
+    </div>
+    <div class="nav-right">
+      <a href="#" class="nav-login">Log in</a>
+      <a href="#" class="btn-primary" style="padding: 10px 20px; font-size: 13px;">Start free trial</a>
+    </div>
+    <button class="nav-mobile-toggle" aria-label="Menu">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M2 4h12M2 8h12M2 12h12"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="hero">
+  <div class="hero-gradient" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      Trusted by 3,200+ finance teams
+    </div>
+
+    <h1>Close your books<br>in a day, every month.</h1>
+
+    <p class="hero-sub">Vero automates the reconciliation, approvals, and reporting your team does manually every month-end. One connected platform that replaces five disconnected tools — and takes a day to set up, not a quarter.</p>
+
+    <div class="hero-ctas">
+      <a href="#" class="btn-primary">
+        Start free trial
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5"/>
+        </svg>
+      </a>
+      <a href="#" class="btn-secondary">
+        See how it works
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="7" cy="7" r="5.5"/>
+          <path d="M5.5 5.5l3 1.5-3 1.5"/>
+        </svg>
+      </a>
+    </div>
+
+    <p class="hero-trust">No credit card required <span>·</span> 14-day free trial <span>·</span> Cancel anytime</p>
+  </div>
+
+  <!-- Product mockup -->
+  <div class="hero-mockup-wrap">
+    <div class="product-mockup">
+
+      <!-- Browser bar -->
+      <div class="mockup-topbar">
+        <div class="mockup-dots">
+          <div class="mockup-dot red"></div>
+          <div class="mockup-dot yellow"></div>
+          <div class="mockup-dot green"></div>
+        </div>
+        <div class="mockup-urlbar">
+          <div class="mockup-urlbar-icon"></div>
+          <span class="mockup-urlbar-text">app.usevero.com/dashboard</span>
+        </div>
+      </div>
+
+      <!-- App body -->
+      <div class="mockup-body">
+
+        <!-- Sidebar -->
+        <div class="mockup-sidebar">
+          <div class="mockup-sidebar-logo">Vero<span>.</span></div>
+
+          <div class="mockup-nav-section">
+            <div class="mockup-nav-label">Overview</div>
+            <div class="mockup-nav-item active">
+              <svg class="mockup-nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="1.5" width="4.5" height="4.5" rx="1"/><rect x="8" y="1.5" width="4.5" height="4.5" rx="1"/><rect x="1.5" y="8" width="4.5" height="4.5" rx="1"/><rect x="8" y="8" width="4.5" height="4.5" rx="1"/></svg>
+              Dashboard
+            </div>
+            <div class="mockup-nav-item">
+              <svg class="mockup-nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1.5,10.5 4.5,7 7,9 10.5,4.5"/><path d="M12.5 4.5h-2v2"/></svg>
+              Reporting
+            </div>
+          </div>
+
+          <div class="mockup-nav-section">
+            <div class="mockup-nav-label">Close</div>
+            <div class="mockup-nav-item">
+              <svg class="mockup-nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="2.5" width="11" height="9" rx="1.5"/><path d="M4.5 2.5V1.5M9.5 2.5V1.5M1.5 5.5h11"/></svg>
+              Month-End Close
+            </div>
+            <div class="mockup-nav-item">
+              <svg class="mockup-nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 2h10l-1 7H3L2 2z"/><path d="M4.5 5.5h5M5.5 8h3"/><circle cx="4.5" cy="12" r="1"/><circle cx="9.5" cy="12" r="1"/></svg>
+              Reconciliation
+            </div>
+            <div class="mockup-nav-item">
+              <svg class="mockup-nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1.5v11M1.5 7h11"/><circle cx="7" cy="7" r="5.5"/></svg>
+              Approvals
+            </div>
+          </div>
+
+          <div class="mockup-nav-section">
+            <div class="mockup-nav-label">Finance</div>
+            <div class="mockup-nav-item">
+              <svg class="mockup-nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11L5 7l2.5 2.5L10 5l2 3"/><rect x="1.5" y="1.5" width="11" height="11" rx="1.5"/></svg>
+              Expenses
+            </div>
+            <div class="mockup-nav-item">
+              <svg class="mockup-nav-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 2v1.5M7 10.5V12M3.5 3.5l1 1M9.5 9.5l1 1M2 7h1.5M10.5 7H12M3.5 10.5l1-1M9.5 4.5l1-1"/><circle cx="7" cy="7" r="2.5"/></svg>
+              Integrations
+            </div>
+          </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="mockup-main">
+
+          <div class="mockup-header-row">
+            <div>
+              <div class="mockup-page-title">Financial Dashboard</div>
+              <div class="mockup-page-sub">Last updated 3 minutes ago</div>
+            </div>
+            <div class="mockup-period-badge">May 2025 ▾</div>
+          </div>
+
+          <!-- Stats row -->
+          <div class="mockup-stats">
+            <div class="mockup-stat">
+              <div class="mockup-stat-label">Revenue</div>
+              <div class="mockup-stat-value">$2.41M</div>
+              <div class="mockup-stat-change up">↑ 12.4% vs last month</div>
+            </div>
+            <div class="mockup-stat">
+              <div class="mockup-stat-label">Expenses</div>
+              <div class="mockup-stat-value">$1.87M</div>
+              <div class="mockup-stat-change down">↑ 3.1% vs last month</div>
+            </div>
+            <div class="mockup-stat">
+              <div class="mockup-stat-label">Net Income</div>
+              <div class="mockup-stat-value">$544K</div>
+              <div class="mockup-stat-change up">↑ 28.2% vs last month</div>
+            </div>
+            <div class="mockup-stat">
+              <div class="mockup-stat-label">Close Status</div>
+              <div class="mockup-stat-value">67%</div>
+              <div class="mockup-stat-change accent">4 tasks remaining</div>
+            </div>
+          </div>
+
+          <!-- Chart row -->
+          <div class="mockup-chart-row">
+
+            <!-- Line chart -->
+            <div class="mockup-chart-panel">
+              <div class="mockup-chart-title">
+                Revenue vs. Expenses — 6 Months
+                <span class="mockup-chart-badge">+12.4%</span>
+              </div>
+              <svg class="mockup-chart-svg" viewBox="0 0 380 120" preserveAspectRatio="none">
+                <!-- Grid lines -->
+                <line x1="0" y1="100" x2="380" y2="100" stroke="#f0eeec" stroke-width="1"/>
+                <line x1="0" y1="75" x2="380" y2="75" stroke="#f0eeec" stroke-width="1"/>
+                <line x1="0" y1="50" x2="380" y2="50" stroke="#f0eeec" stroke-width="1"/>
+                <line x1="0" y1="25" x2="380" y2="25" stroke="#f0eeec" stroke-width="1"/>
+                <!-- Revenue area fill -->
+                <defs>
+                  <linearGradient id="revFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#b8748c" stop-opacity="0.12"/>
+                    <stop offset="100%" stop-color="#b8748c" stop-opacity="0"/>
+                  </linearGradient>
+                  <linearGradient id="expFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#1a1918" stop-opacity="0.06"/>
+                    <stop offset="100%" stop-color="#1a1918" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <!-- Revenue fill area -->
+                <polygon points="0,88 63,80 126,70 189,62 252,45 315,30 380,18 380,108 315,108 252,108 189,108 126,108 63,108 0,108" fill="url(#revFill)"/>
+                <!-- Expense fill area -->
+                <polygon points="0,92 63,88 126,84 189,80 252,76 315,74 380,72 380,108 315,108 252,108 189,108 126,108 63,108 0,108" fill="url(#expFill)"/>
+                <!-- Revenue line -->
+                <polyline points="0,88 63,80 126,70 189,62 252,45 315,30 380,18" fill="none" stroke="#b8748c" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+                <!-- Expense line -->
+                <polyline points="0,92 63,88 126,84 189,80 252,76 315,74 380,72" fill="none" stroke="#1a1918" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="none"/>
+                <!-- Dots -->
+                <circle cx="380" cy="18" r="3" fill="#b8748c" stroke="white" stroke-width="1.5"/>
+                <circle cx="380" cy="72" r="3" fill="#1a1918" stroke="white" stroke-width="1.5"/>
+                <!-- X-axis labels -->
+                <text x="0" y="118" font-size="8" fill="#7c7875" font-family="inherit">Dec</text>
+                <text x="57" y="118" font-size="8" fill="#7c7875" font-family="inherit">Jan</text>
+                <text x="120" y="118" font-size="8" fill="#7c7875" font-family="inherit">Feb</text>
+                <text x="183" y="118" font-size="8" fill="#7c7875" font-family="inherit">Mar</text>
+                <text x="246" y="118" font-size="8" fill="#7c7875" font-family="inherit">Apr</text>
+                <text x="360" y="118" font-size="8" fill="#7c7875" font-family="inherit">May</text>
+              </svg>
+            </div>
+
+            <!-- Transactions table -->
+            <div class="mockup-table-panel">
+              <div class="mockup-table-head">
+                <span>Transaction</span>
+                <span style="text-align:right">Amount</span>
+                <span style="text-align:center">Status</span>
+              </div>
+              <div class="mockup-table-row">
+                <span class="mockup-table-name">Stripe — May batch</span>
+                <span class="mockup-table-amount" style="text-align:right">$84,200</span>
+                <span class="mockup-badge matched" style="margin:auto">Matched</span>
+              </div>
+              <div class="mockup-table-row">
+                <span class="mockup-table-name">Gusto payroll #12</span>
+                <span class="mockup-table-amount" style="text-align:right">$62,450</span>
+                <span class="mockup-badge matched" style="margin:auto">Matched</span>
+              </div>
+              <div class="mockup-table-row">
+                <span class="mockup-table-name">AWS — May invoice</span>
+                <span class="mockup-table-amount" style="text-align:right">$11,830</span>
+                <span class="mockup-badge flagged" style="margin:auto">Flagged</span>
+              </div>
+              <div class="mockup-table-row">
+                <span class="mockup-table-name">QuickBooks sync</span>
+                <span class="mockup-table-amount" style="text-align:right">$48,670</span>
+                <span class="mockup-badge matched" style="margin:auto">Matched</span>
+              </div>
+              <div class="mockup-table-row">
+                <span class="mockup-table-name">Intercom renewal</span>
+                <span class="mockup-table-amount" style="text-align:right">$4,200</span>
+                <span class="mockup-badge pending" style="margin:auto">Pending</span>
+              </div>
+              <div class="mockup-table-row">
+                <span class="mockup-table-name">NetSuite journal</span>
+                <span class="mockup-table-amount" style="text-align:right">$29,100</span>
+                <span class="mockup-badge matched" style="margin:auto">Matched</span>
+              </div>
+            </div>
+
+          </div>
+        </div><!-- /mockup-main -->
+      </div><!-- /mockup-body -->
+    </div><!-- /product-mockup -->
+  </div><!-- /hero-mockup-wrap -->
+
+</section>
+
+<!-- ============================================================
+     SOCIAL PROOF BAR
+============================================================ -->
+<section class="social-proof">
+  <div class="container--wide">
+    <p class="social-proof-label">Trusted by finance teams at fast-growing companies</p>
+    <div class="social-proof-logos">
+      <div class="logo-slot"><span class="logo-wordmark">Meridian</span></div>
+      <div class="logo-slot"><span class="logo-wordmark">Hartwell</span></div>
+      <div class="logo-slot"><span class="logo-wordmark">Stackline</span></div>
+      <div class="logo-slot"><span class="logo-wordmark">Clearpath</span></div>
+      <div class="logo-slot"><span class="logo-wordmark">Norwood</span></div>
+      <div class="logo-slot"><span class="logo-wordmark">Pinnacle</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FEATURES SECTION
+============================================================ -->
+<section class="features">
+  <div class="container">
+    <div class="features-intro">
+      <p class="section-label">Everything you need</p>
+      <h2>One platform for your<br>entire financial operation</h2>
+      <p>Vero replaces the tangle of spreadsheets and disconnected tools finance teams rely on — built for the manager who needs to run the close without a consultant.</p>
+    </div>
+
+    <div class="features-grid">
+
+      <!-- Feature 1 -->
+      <div class="feature-item">
+        <svg class="feature-icon" viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M5 17h24M17 5v24"/>
+          <path d="M9 9l5 5M20 20l5 5M20 9l5 5M9 20l5 5" stroke-linecap="round"/>
+          <rect x="3" y="3" width="28" height="28" rx="4" stroke-dasharray="none"/>
+        </svg>
+        <h3>Automated Reconciliation</h3>
+        <p>Vero pulls transactions from your bank, payment processors, and ERP and matches them automatically. Discrepancies surface in a single flagged queue — no more hunting through spreadsheet rows. Most teams reconcile in under two hours.</p>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-item">
+        <svg class="feature-icon" viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="8" width="28" height="20" rx="3"/>
+          <path d="M10 8V6a3 3 0 0 1 6 0v2M18 8V6a3 3 0 0 1 6 0v2"/>
+          <path d="M10 18l4 4 10-8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3>Approval Workflows</h3>
+        <p>Build multi-step approval chains for invoices, expenses, and journal entries — no rules to write manually. Approvers can approve or reject directly from their inbox. Every decision is logged with a timestamp and reason.</p>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-item">
+        <svg class="feature-icon" viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="1.5">
+          <polyline points="4,26 10,18 15,22 21,12 28,8" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="3" y="3" width="28" height="28" rx="4"/>
+          <circle cx="28" cy="8" r="2.5" fill="currentColor" stroke="none"/>
+        </svg>
+        <h3>Real-Time Reporting</h3>
+        <p>Vero generates your P&L, balance sheet, and cash flow statement the moment transactions post — not at month-end. Share live report links with your board instead of exporting to PDF every time something changes.</p>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="feature-item">
+        <svg class="feature-icon" viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="13" height="13" rx="2"/>
+          <rect x="18" y="3" width="13" height="13" rx="2"/>
+          <rect x="3" y="18" width="13" height="13" rx="2"/>
+          <rect x="18" y="18" width="13" height="13" rx="2"/>
+          <path d="M9.5 10h3M9.5 7h5M20.5 10h5M20.5 7h3M9.5 24.5h3M20.5 24.5h5"/>
+        </svg>
+        <h3>Multi-Entity Support</h3>
+        <p>Manage multiple subsidiaries, legal entities, or cost centers from a single Vero account. Consolidate financials across entities with one click — full intercompany eliminations handled automatically.</p>
+      </div>
+
+      <!-- Feature 5 -->
+      <div class="feature-item">
+        <svg class="feature-icon" viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M17 3v5M17 26v5M3 17h5M26 17h5"/>
+          <circle cx="17" cy="17" r="8"/>
+          <path d="M12 17l3 3 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3>Complete Audit Trail</h3>
+        <p>Every action in Vero — every edit, approval, import, and export — is logged against the user who made it. Audit-ready by default. No more reconstructing what happened and when before an audit or board review.</p>
+      </div>
+
+      <!-- Feature 6 -->
+      <div class="feature-item">
+        <svg class="feature-icon" viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="6" cy="17" r="3.5"/>
+          <circle cx="28" cy="8" r="3.5"/>
+          <circle cx="28" cy="26" r="3.5"/>
+          <path d="M9.5 17l15-8M9.5 17l15 8" stroke-linecap="round"/>
+        </svg>
+        <h3>Integrations</h3>
+        <p>Vero connects natively to QuickBooks, NetSuite, Stripe, Gusto, and 40+ other tools your team already uses. Two-way sync keeps your data consistent across systems without manual exports or custom scripts.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PRODUCT DEEP DIVE
+============================================================ -->
+<section class="deep-dive">
+  <div class="container--wide">
+    <div class="deep-dive-intro">
+      <p class="section-label">A closer look</p>
+      <h2>Built for how month-end<br>actually works</h2>
+    </div>
+
+    <!-- Spotlight 1 — Month-End Close -->
+    <div class="spotlight">
+      <div class="spotlight-text">
+        <div class="spotlight-area">Month-End Close</div>
+        <h3>From five days to one</h3>
+        <p>The average finance team at a 200-person company spends four to five working days closing the books each month. Most of that time is reconciliation — matching transactions by hand across systems that don't talk to each other. Vero connects to every source automatically and runs the matching logic in the background. By the time your team opens the platform on close day, 95% of the work is already done.</p>
+        <div class="spotlight-bullets">
+          <div class="spotlight-bullet">
+            <svg class="bullet-check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="8" cy="8" r="7"/>
+              <path d="M5 8l2.5 2.5L11 5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Matches transactions across bank, ERP, and processors in minutes
+          </div>
+          <div class="spotlight-bullet">
+            <svg class="bullet-check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="8" cy="8" r="7"/>
+              <path d="M5 8l2.5 2.5L11 5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Flags only the exceptions that need human review
+          </div>
+          <div class="spotlight-bullet">
+            <svg class="bullet-check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="8" cy="8" r="7"/>
+              <path d="M5 8l2.5 2.5L11 5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Full close checklist with sign-off tracking built in
+          </div>
+        </div>
+      </div>
+
+      <div class="spotlight-panel">
+        <div class="panel-close">
+          <div class="panel-header">
+            <span class="panel-title">May 2025 Close Checklist</span>
+            <span class="panel-tag orange">In progress</span>
+          </div>
+          <div class="close-checklist">
+            <div class="close-item">
+              <div class="close-item-check done">
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="white" stroke-width="2"><path d="M1.5 4l2 2L6.5 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span class="close-item-label done-label">Bank statement imports</span>
+              <span class="close-item-user">S. Okonkwo</span>
+            </div>
+            <div class="close-item">
+              <div class="close-item-check done">
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="white" stroke-width="2"><path d="M1.5 4l2 2L6.5 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span class="close-item-label done-label">Auto-reconciliation run</span>
+              <span class="close-item-user">Vero</span>
+            </div>
+            <div class="close-item">
+              <div class="close-item-check done">
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="white" stroke-width="2"><path d="M1.5 4l2 2L6.5 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span class="close-item-label done-label">Expense approvals cleared</span>
+              <span class="close-item-user">J. Park</span>
+            </div>
+            <div class="close-item">
+              <div class="close-item-check done">
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="white" stroke-width="2"><path d="M1.5 4l2 2L6.5 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span class="close-item-label done-label">Intercompany eliminations</span>
+              <span class="close-item-user">Vero</span>
+            </div>
+            <div class="close-item">
+              <div class="close-item-check in-progress">
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="white" stroke-width="2"><circle cx="4" cy="4" r="2"/></svg>
+              </div>
+              <span class="close-item-label">Review 3 flagged items</span>
+              <span class="close-item-user">S. Okonkwo</span>
+            </div>
+            <div class="close-item">
+              <div class="close-item-check pending-c"></div>
+              <span class="close-item-label" style="color: var(--gray-500);">Controller sign-off</span>
+              <span class="close-item-user">J. Whitfield</span>
+            </div>
+          </div>
+          <div class="close-progress">
+            <div class="close-progress-bar"></div>
+          </div>
+          <div class="close-progress-label">
+            <span>4 of 6 tasks complete</span>
+            <span style="color: var(--accent); font-weight:600;">67%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Spotlight 2 — Reporting -->
+    <div class="spotlight reverse">
+      <div class="spotlight-text">
+        <div class="spotlight-area">Financial Reporting</div>
+        <h3>Reports your board will trust</h3>
+        <p>Vero generates audit-ready financial statements in real time — not as a month-end export, but as a live document that updates the moment a transaction posts. Share a read-only link with your board, investors, or auditors and they'll always see current numbers. No more "let me send you an updated version."</p>
+        <div class="spotlight-bullets">
+          <div class="spotlight-bullet">
+            <svg class="bullet-check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="8" cy="8" r="7"/>
+              <path d="M5 8l2.5 2.5L11 5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Live P&L, balance sheet, and cash flow — always current
+          </div>
+          <div class="spotlight-bullet">
+            <svg class="bullet-check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="8" cy="8" r="7"/>
+              <path d="M5 8l2.5 2.5L11 5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Custom report builder for department and cost-center breakdowns
+          </div>
+          <div class="spotlight-bullet">
+            <svg class="bullet-check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="8" cy="8" r="7"/>
+              <path d="M5 8l2.5 2.5L11 5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            One-click export to PDF or Excel for board packs
+          </div>
+        </div>
+      </div>
+
+      <div class="spotlight-panel">
+        <div class="panel-report">
+          <div class="panel-header">
+            <span class="panel-title">Profit & Loss Statement</span>
+          </div>
+          <div class="report-live-badge">
+            <span class="report-live-dot"></span>
+            Live — updates automatically
+          </div>
+          <div class="report-tabs">
+            <div class="report-tab active">P&L</div>
+            <div class="report-tab">Balance Sheet</div>
+            <div class="report-tab">Cash Flow</div>
+          </div>
+
+          <div class="report-row">
+            <span class="report-row-label bold">Revenue</span>
+            <span class="report-row-value">$2,412,800</span>
+          </div>
+          <div class="report-row">
+            <span class="report-row-label indent">Product revenue</span>
+            <span class="report-row-value">$2,180,000</span>
+          </div>
+          <div class="report-row">
+            <span class="report-row-label indent">Services</span>
+            <span class="report-row-value">$232,800</span>
+          </div>
+          <div class="report-row">
+            <span class="report-row-label bold">Cost of Revenue</span>
+            <span class="report-row-value red">($842,000)</span>
+          </div>
+          <div class="report-row">
+            <span class="report-row-label bold">Gross Profit</span>
+            <span class="report-row-value green">$1,570,800</span>
+          </div>
+          <div class="report-row">
+            <span class="report-row-label bold">Operating Expenses</span>
+            <span class="report-row-value red">($1,026,400)</span>
+          </div>
+          <div class="report-row" style="background: #f2faf4; border-radius: 5px; padding: 10px 8px; margin-top:4px;">
+            <span class="report-row-label bold" style="color: #2da854;">Net Income</span>
+            <span class="report-row-value green" style="font-size: 14px;">$544,400</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Spotlight 3 — Integrations -->
+    <div class="spotlight">
+      <div class="spotlight-text">
+        <div class="spotlight-area">Integrations</div>
+        <h3>Works with what you have</h3>
+        <p>Vero doesn't ask you to change how you work — it connects to the tools your team already depends on. Native integrations with the most common accounting, payroll, payments, and banking platforms mean setup is authenticating your accounts, not rebuilding your stack. New integrations are added monthly based on customer requests.</p>
+        <div class="spotlight-bullets">
+          <div class="spotlight-bullet">
+            <svg class="bullet-check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="8" cy="8" r="7"/>
+              <path d="M5 8l2.5 2.5L11 5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            40+ native integrations — no middleware required
+          </div>
+          <div class="spotlight-bullet">
+            <svg class="bullet-check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="8" cy="8" r="7"/>
+              <path d="M5 8l2.5 2.5L11 5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Two-way sync keeps data consistent in both directions
+          </div>
+          <div class="spotlight-bullet">
+            <svg class="bullet-check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="8" cy="8" r="7"/>
+              <path d="M5 8l2.5 2.5L11 5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            API available for custom connections and internal tools
+          </div>
+        </div>
+      </div>
+
+      <div class="spotlight-panel">
+        <div class="panel-integrations">
+          <div class="panel-header">
+            <span class="panel-title">Connected Integrations</span>
+            <span class="panel-tag">40+ available</span>
+          </div>
+          <div class="integration-grid">
+            <div class="integration-chip connected">
+              <div class="integration-icon" style="background:#e8f5e9; color:#2e7d32; font-size: 10px; font-weight:800;">QB</div>
+              <span class="integration-name">QuickBooks</span>
+            </div>
+            <div class="integration-chip connected">
+              <div class="integration-icon" style="background:#fce4ec; color:#c62828; font-size: 11px;">NS</div>
+              <span class="integration-name">NetSuite</span>
+            </div>
+            <div class="integration-chip connected">
+              <div class="integration-icon" style="background:#ede7f6; color:#4527a0; font-size: 10px;">St</div>
+              <span class="integration-name">Stripe</span>
+            </div>
+            <div class="integration-chip connected">
+              <div class="integration-icon" style="background:#e3f2fd; color:#1565c0; font-size: 10px;">Gu</div>
+              <span class="integration-name">Gusto</span>
+            </div>
+            <div class="integration-chip">
+              <div class="integration-icon" style="background:#fff3e0; color:#e65100; font-size: 10px;">Xr</div>
+              <span class="integration-name">Xero</span>
+            </div>
+            <div class="integration-chip">
+              <div class="integration-icon" style="background:#f3e5f5; color:#6a1b9a; font-size: 10px;">Pl</div>
+              <span class="integration-name">Plaid</span>
+            </div>
+            <div class="integration-chip">
+              <div class="integration-icon" style="background:#e8f5e9; color:#1b5e20; font-size: 10px;">Ri</div>
+              <span class="integration-name">Rippling</span>
+            </div>
+            <div class="integration-chip">
+              <div class="integration-icon" style="background:#e3f2fd; color:#0d47a1; font-size: 9px;">+36</div>
+              <span class="integration-name">More</span>
+            </div>
+          </div>
+          <div class="integration-sync-row">
+            <span>Last two-way sync</span>
+            <div class="integration-sync-status">
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
+              3 minutes ago
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS
+============================================================ -->
+<section class="testimonials">
+  <div class="container--wide">
+    <div class="testimonials-intro">
+      <p class="section-label">Customer stories</p>
+      <h2>Finance teams that made the switch</h2>
+    </div>
+
+    <div class="testimonials-grid">
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">
+          <svg class="star" viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.4l-3 2.9.7 4.1L7 10.4l-3.7 2 .7-4.1-3-2.9 4.2-.8z"/></svg>
+          <svg class="star" viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.4l-3 2.9.7 4.1L7 10.4l-3.7 2 .7-4.1-3-2.9 4.2-.8z"/></svg>
+          <svg class="star" viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.4l-3 2.9.7 4.1L7 10.4l-3.7 2 .7-4.1-3-2.9 4.2-.8z"/></svg>
+          <svg class="star" viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.4l-3 2.9.7 4.1L7 10.4l-3.7 2 .7-4.1-3-2.9 4.2-.8z"/></svg>
+          <svg class="star" viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.4l-3 2.9.7 4.1L7 10.4l-3.7 2 .7-4.1-3-2.9 4.2-.8z"/></svg>
+        </div>
+        <p class="testimonial-quote">"We used to spend the last week of every month in spreadsheet hell. Four people, five days, and we were still finding errors in the board pack. Vero cut our close to a single day. I don't know how we ran a finance team without it."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-name">Sarah Okonkwo</div>
+          <div class="testimonial-role">Head of Finance, Meridian Logistics</div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">
+          <svg class="star" viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.4l-3 2.9.7 4.1L7 10.4l-3.7 2 .7-4.1-3-2.9 4.2-.8z"/></svg>
+          <svg class="star" viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.4l-3 2.9.7 4.1L7 10.4l-3.7 2 .7-4.1-3-2.9 4.2-.8z"/></svg>
+          <svg class="star" viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.4l-3 2.9.7 4.1L7 10.4l-3.7 2 .7-4.1-3-2.9 4.2-.8z"/></svg>
+          <svg class="star" viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.4l-3 2.9.7 4.1L7 10.4l-3.7 2 .7-4.1-3-2.9 4.2-.8z"/></svg>
+          <svg class="star" viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.4l-3 2.9.7 4.1L7 10.4l-3.7 2 .7-4.1-3-2.9 4.2-.8z"/></svg>
+        </div>
+        <p class="testimonial-quote">"The reconciliation alone was worth switching. We process about 8,000 transactions a month and Vero matches 96% of them automatically on import. What used to take my team three days now takes three hours. And the audit trail means our auditors are in and out in half the time."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-name">James Whitfield</div>
+          <div class="testimonial-role">Controller, Hartwell Manufacturing</div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">
+          <svg class="star" viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.4l-3 2.9.7 4.1L7 10.4l-3.7 2 .7-4.1-3-2.9 4.2-.8z"/></svg>
+          <svg class="star" viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.4l-3 2.9.7 4.1L7 10.4l-3.7 2 .7-4.1-3-2.9 4.2-.8z"/></svg>
+          <svg class="star" viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.4l-3 2.9.7 4.1L7 10.4l-3.7 2 .7-4.1-3-2.9 4.2-.8z"/></svg>
+          <svg class="star" viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.4l-3 2.9.7 4.1L7 10.4l-3.7 2 .7-4.1-3-2.9 4.2-.8z"/></svg>
+          <svg class="star" viewBox="0 0 14 14"><path d="M7 1l1.8 3.6L13 5.4l-3 2.9.7 4.1L7 10.4l-3.7 2 .7-4.1-3-2.9 4.2-.8z"/></svg>
+        </div>
+        <p class="testimonial-quote">"I was skeptical that we could set up proper accounting software without bringing in a consultant. We were live in Vero in a day. The onboarding is genuinely different — it feels like someone who has done month-end close before actually designed the setup flow."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-name">Priya Malhotra</div>
+          <div class="testimonial-role">CFO, Stackline Technologies</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     METRICS STRIP
+============================================================ -->
+<section class="metrics">
+  <div class="container--wide">
+    <div class="metrics-grid">
+      <div class="metric-item">
+        <div class="metric-value">3,200+</div>
+        <div class="metric-label">Finance teams using Vero</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-value">180M+</div>
+        <div class="metric-label">Transactions reconciled every month</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-value">4.1 days</div>
+        <div class="metric-label">Average time saved per month-end close</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-value">98%</div>
+        <div class="metric-label">Customer satisfaction score</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PRICING
+============================================================ -->
+<section class="pricing">
+  <div class="container--wide">
+    <div class="pricing-intro">
+      <p class="section-label">Pricing</p>
+      <h2>Simple, transparent pricing</h2>
+      <p>No setup fees. No long contracts. Cancel anytime.</p>
+    </div>
+    <div class="pricing-toggle">
+      <span>Monthly</span>
+      <div class="toggle-switch"><div class="toggle-knob"></div></div>
+      <span>Annual</span>
+      <span class="toggle-save">Save 20%</span>
+    </div>
+
+    <div class="pricing-grid container">
+
+      <!-- Starter -->
+      <div class="pricing-card">
+        <div class="pricing-tier-name">Starter</div>
+        <div class="pricing-tier-desc">For small finance teams getting off spreadsheets for the first time.</div>
+        <div class="pricing-price">
+          <span class="pricing-price-currency">$</span>
+          <span class="pricing-price-amount">299</span>
+          <span class="pricing-price-period">/month</span>
+        </div>
+        <div class="pricing-cta">
+          <a href="#" class="btn-pricing-outline">Start free trial</a>
+        </div>
+        <div class="pricing-features-list">
+          <div class="pricing-feature"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>Up to 3 users</div>
+          <div class="pricing-feature"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>5,000 transactions/month</div>
+          <div class="pricing-feature"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>Automated reconciliation</div>
+          <div class="pricing-feature"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>10 native integrations</div>
+          <div class="pricing-feature"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>Standard reporting</div>
+          <div class="pricing-feature muted"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>Multi-entity support</div>
+          <div class="pricing-feature muted"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>Priority support</div>
+        </div>
+      </div>
+
+      <!-- Growth — featured -->
+      <div class="pricing-card featured">
+        <div class="pricing-popular">Most popular</div>
+        <div class="pricing-tier-name">Growth</div>
+        <div class="pricing-tier-desc">For growing finance teams managing more complexity across departments.</div>
+        <div class="pricing-price">
+          <span class="pricing-price-currency">$</span>
+          <span class="pricing-price-amount">799</span>
+          <span class="pricing-price-period">/month</span>
+        </div>
+        <div class="pricing-cta">
+          <a href="#" class="btn-pricing-main">Start free trial</a>
+        </div>
+        <div class="pricing-features-list">
+          <div class="pricing-feature"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>Up to 10 users</div>
+          <div class="pricing-feature"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited transactions</div>
+          <div class="pricing-feature"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>Automated reconciliation</div>
+          <div class="pricing-feature"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>40+ native integrations</div>
+          <div class="pricing-feature"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>Live reporting + custom builder</div>
+          <div class="pricing-feature"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>Multi-entity support</div>
+          <div class="pricing-feature"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>Priority support</div>
+        </div>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="pricing-card">
+        <div class="pricing-tier-name">Enterprise</div>
+        <div class="pricing-tier-desc">For complex organizations that need custom workflows and dedicated support.</div>
+        <div class="pricing-price">
+          <span class="pricing-price-amount" style="font-size: 28px; letter-spacing:-0.03em; line-height:1.1;">Custom</span>
+        </div>
+        <div class="pricing-cta">
+          <a href="#" class="btn-pricing-outline">Talk to sales</a>
+        </div>
+        <div class="pricing-features-list">
+          <div class="pricing-feature"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited users</div>
+          <div class="pricing-feature"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited transactions</div>
+          <div class="pricing-feature"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom approval workflows</div>
+          <div class="pricing-feature"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>Full API access</div>
+          <div class="pricing-feature"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>SSO & advanced security</div>
+          <div class="pricing-feature"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>Dedicated onboarding team</div>
+          <div class="pricing-feature"><svg class="pricing-check" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5.5,10.5 12,4" stroke-linecap="round" stroke-linejoin="round"/></svg>SLA + named account manager</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FINAL CTA
+============================================================ -->
+<section class="final-cta">
+  <div class="container">
+    <h2>Your next month-end close should take a day, not a week.</h2>
+    <p>No long contracts. No setup fees. Your team is live in Vero in under 24 hours.</p>
+    <div class="final-cta-btns">
+      <a href="#" class="btn-primary" style="padding: 15px 30px; font-size: 15px;">
+        Start free trial
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5"/>
+        </svg>
+      </a>
+      <a href="#" class="btn-secondary" style="font-size: 15px;">Talk to the team</a>
+    </div>
+    <p class="final-trust">No credit card required <span>·</span> 14-day free trial <span>·</span> Cancel anytime</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer>
+  <div class="container--wide">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <div class="footer-logo">Vero<span>.</span></div>
+        <p class="footer-tagline">Your finance team's last spreadsheet was yesterday.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social-link" aria-label="Twitter">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2s-1.5 1-2.5 1C9 1.5 7.5 1 6 2.5 4.5 4 5 6 5 6S2 6 0.5 3.5c0 0 0 4 3.5 5C2.5 9 1.5 9 1.5 9c1 1.5 3 2 5 2 4 0 6.5-3 6.5-7V3.5S14.5 3 13 2z"/></svg>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="LinkedIn">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="12" height="12" rx="2"/><path d="M4 6v4M4 4v0M6 10V7.5C6 6.7 6.7 6 7.5 6S9 6.7 9 7.5V10"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Product</div>
+        <div class="footer-links">
+          <a href="#">Reconciliation</a>
+          <a href="#">Approvals</a>
+          <a href="#">Reporting</a>
+          <a href="#">Multi-Entity</a>
+          <a href="#">Audit Trail</a>
+          <a href="#">Integrations</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="#">About</a>
+          <a href="#">Customers</a>
+          <a href="#">Blog</a>
+          <a href="#">Careers</a>
+          <a href="#">Press</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Resources</div>
+        <div class="footer-links">
+          <a href="#">Documentation</a>
+          <a href="#">Help Center</a>
+          <a href="#">Status</a>
+          <a href="#">Security</a>
+          <a href="#">API Reference</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-legal">
+      <span class="footer-legal-text">© 2025 Vero Financial Technologies, Inc. All rights reserved.</span>
+      <div class="footer-legal-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Settings</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
